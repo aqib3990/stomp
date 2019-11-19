@@ -2,6 +2,7 @@ var Stomp = require('stomp-client');
 var destination = '/queue/test1';
 var express = require('express');
 var app = express();
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 app.get('/, function(req, res) {
 var client = new Stomp('172.30.74.114', 61613, '', ''); 
@@ -18,4 +19,8 @@ try {
  res.send(err);
    console.log("ERROR====> ", err);
  }
+})
+
+app.listen(port, () => {
+  console.log("app is running on ", port);
 })
